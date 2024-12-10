@@ -45,9 +45,14 @@ async function searchImages(query, page = 1) {
         if (currentPage === 1) {
             gallery.innerHTML = ""; 
         }
+        const q = query.trim();
+        if (q === "") {
+             showError("Sorry, there are no images matching your search query. Please try again!");
+        return;
+        }
 
         displayImages(data.hits);
-        if (page * 40 >= data.totalHits) {
+        if (page * 15 >= data.totalHits) {
             loadMoreBtn.style.display = "none";
             showError("We're sorry, but you've reached the end of search results.");
         } else {
@@ -69,12 +74,7 @@ async function searchImages(query, page = 1) {
 function displayImages(images) {
     if (currentPage === 1) {
         gallery.innerHTML = "";
-    }
-   
-    if (images.length === 0 || images.every(image => image.toString().trim() === "")) {
-        showError("Sorry, there are no images matching your search query. Please try again!");
-        return;
-    }
+    }    
 
     images.forEach(function (image) {
         const card = document.createElement("div");
