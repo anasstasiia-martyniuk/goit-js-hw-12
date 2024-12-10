@@ -37,7 +37,7 @@ async function searchImages(query, page = 1) {
                 orientation: "horizontal",
                 safesearch: true,
                 page: page,
-                per_page: 40
+                per_page: 15
             },
         });
 
@@ -70,8 +70,8 @@ function displayImages(images) {
     if (currentPage === 1) {
         gallery.innerHTML = "";
     }
-
-    if (images.length === 0 && currentPage === 1) {
+   
+    if (images.length === 0 || images.every(image => image.toString().trim() === "")) {
         showError("Sorry, there are no images matching your search query. Please try again!");
         return;
     }
