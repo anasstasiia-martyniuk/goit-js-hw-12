@@ -60,7 +60,11 @@ async function searchImages(query, page = 1) {
         }
 
         const cardHeight = gallery.querySelector(".image-card").getBoundingClientRect().height;
-        window.scrollBy(0, cardHeight * 2);
+        window.scrollBy({
+            top: cardHeight * 2,
+            left: 0,
+            behavior: "smooth",
+        });
 
     } catch (error) {
         showError("An error occurred. Please try again.");
@@ -104,6 +108,6 @@ function displayImages(images) {
 function showError(message) {
     iziToast.error({
         title: 'Error',
-        message: message || 'An error occurred. Please try again.',
+        message: message,
     });
 }
